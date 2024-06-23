@@ -95,15 +95,15 @@ class ProductSnapshot extends Model
         $diffs = [];
 
         if ($to->product_name !== $this->product_name) {
-            $diffs['product_name'] = [$this->product_name, $to->product_name];
+            $diffs['Name'] = [$this->product_name, $to->product_name];
         }
 
         if ($to->fk_category !== $this->fk_category) {
-            $diffs['fk_category'] = [$this->fk_category, $to->fk_category];
+            $diffs['Category'] = [Category::find($this->fk_category)->category, Category::find($to->fk_category)->category];
         }
 
         if ($to->fk_supplier !== $this->fk_supplier) {
-            $diffs['fk_supplier'] = [$this->fk_supplier, $to->fk_supplier];
+            $diffs['Supplier'] = [Supplier::find($this->fk_supplier)->company_name, Supplier::find($to->fk_supplier)->company_name];
         }
 
         if ($to->price !== $this->price) {
