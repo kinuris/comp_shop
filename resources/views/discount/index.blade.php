@@ -17,7 +17,7 @@ Manage Discounts
             <div class="row">
                 <p class="col-auto">{{ $discount->name }}</p>
                 <div class="col"></div>
-                <a class="col-auto btn btn-primary ms-1">View</a>
+                <!-- <a class="col-auto btn btn-primary ms-1">View</a> -->
                 <a href="/discount/update/{{ $discount->id }}" class="col-auto btn btn-secondary ms-1">Edit</a>
                 <a href="/discount/disable/{{ $discount->id }}" class="col-auto btn btn-danger ms-1">Disable</a>
             </div>
