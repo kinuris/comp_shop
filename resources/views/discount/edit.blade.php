@@ -96,7 +96,7 @@ Edit Discount
                             ->where('fk_discount', '=', $discount->id)
                             ->get()) > 0 ? 'true' : 'false';
 
-                        echo "{ value: $product->id, label: \"$category->category: $product->product_name (₱$product->price)\", selected: $selected },\n";
+                        echo "{ value: $product->id, label: '$category->category: $product->product_name (₱$product->price)', selected: $selected },\n";
                     }
                     ?>
                 ]
