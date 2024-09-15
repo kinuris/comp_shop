@@ -10,9 +10,7 @@ use App\Policies\PaymentMethodPolicy;
 use App\Policies\ProductPolicy;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,10 +21,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Livewire::setScriptRoute(function ($handle) {
-        //     return Route::get('/vendor/livewire/livewire.js', $handle);
-        // });
-
         Paginator::useBootstrap();
 
         Gate::policy(Product::class, ProductPolicy::class);
