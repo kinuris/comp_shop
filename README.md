@@ -53,3 +53,5 @@ Password: 1234567890
     - Checkout
     - Generate Receipt
     - Print Receipt
+- View History (History Tab)
+- Change Password
