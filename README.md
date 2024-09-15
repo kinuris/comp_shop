@@ -42,7 +42,7 @@ Password: 1234567890
 
 - Product Management (Products Tab)
   - _(Same as admin capabilities)_
-  - Change Password
+- Change Password
 
 Employee Account:
 Company ID: HP-0959
