@@ -33,7 +33,7 @@ History
                 @if(isset($peek_user))
                 <a href="/history/{{ $peek_user }}?modal={{ $tid }}" class="btn btn-primary">Generate Receipt</a>
                 @else
-                <a href="/history?modal={{ $tid }}" class="btn btn-primary">Generate Receipt</a>
+                <a href="/history?modal={{ $tid }}" class="btn btn-primary">View Receipt</a>
                 @endif
             </div>
         </div>

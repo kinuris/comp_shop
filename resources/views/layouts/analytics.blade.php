@@ -40,7 +40,7 @@
     ?>
 
     <h1 class="text-center">₱{{ number_format($total, 2, '.', ',') }}</h1>
-    <div class="container mt-4">
+    <!-- <div class="container mt-4">
         <h4>By Category:</h4>
         <table class="table table-bordered">
             <thead>
@@ -51,7 +51,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Loop through your categories -->
                 @foreach($categories as $cid)
                 @php($category = \App\Models\Category::find($cid))
                 @php($filtered = array_filter($items, fn($item) => $item->fk_category === $cid))
@@ -64,8 +63,7 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-
+    </div> -->
 
     <div class="container mt-4">
         <h4>By Product:</h4>

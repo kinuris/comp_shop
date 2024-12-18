@@ -24,9 +24,9 @@
                 <li class="nav-item">
                     <a href="/history" class="nav-link active text-secondary">History</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="/password-change/{{ auth()->user()->user_id }}" class="nav-link active text-secondary">Change Password</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="/logout" class="nav-link active text-secondary">Logout</a>
                 </li>

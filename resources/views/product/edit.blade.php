@@ -68,7 +68,7 @@ Edit Product
             @enderror
         </div>
 
-        <div class="col form-group">
+        <!-- <div class="col form-group">
             <label for="product-image">Product Image:</label>
             <input class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" type="file" name="image" id="product-image" accept="image/jpg,image/jpeg,image/png">
             @error('image')
@@ -76,7 +76,7 @@ Edit Product
                 {{ $message }}
             </div>
             @enderror
-        </div>
+        </div> -->
     </div>
 
     <div class="col-auto form-group mb-2">

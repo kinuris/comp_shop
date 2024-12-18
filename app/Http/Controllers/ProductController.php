@@ -47,7 +47,7 @@ class ProductController extends Controller
             'stock_quantity' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
             'image' => ['nullable', File::image(), 'max:16000'],
-            'description' => ['required', 'min:32'],
+            'description' => ['required'],
         ]);
 
         $barcode = rand(100_000_000_000, 999_999_999_999);
@@ -110,7 +110,7 @@ class ProductController extends Controller
             'supplier' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
             'image' => ['nullable', File::image(), 'max:16000'],
-            'description' => ['required', 'min:32'],
+            'description' => ['required'],
         ]);
 
         $validated['fk_category'] = $request->input('category');

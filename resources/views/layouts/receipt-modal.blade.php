@@ -53,8 +53,8 @@
                     </tbody>
                 </table>
                 <p class="m-0 text-secondary fw-bold">SUBTOTAL: ₱{{ round($subtotal, 2) }}</p>
-                <p class="m-0 text-secondary fw-bold">SALES TAX: ₱{{ round($subtotal * 0.12, 2) }}</p>
-                <p class="m-0 text-secondary fw-bold">TOTAL: ₱{{ round($subtotal + $subtotal * 0.12, 2) }}</p>
+                <!-- <p class="m-0 text-secondary fw-bold">SALES TAX: ₱{{ round($subtotal * 0.12, 2) }}</p> -->
+                <p class="m-0 text-secondary fw-bold">TOTAL: ₱{{ round($subtotal, 2) }}</p>
             </div>
             <div class="modal-footer">
                 <h2 class="me-auto m-0">Thank You!</h2>

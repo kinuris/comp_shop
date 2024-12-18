@@ -67,7 +67,7 @@
         @foreach($group as $product)
         <div class="d-flex justify-content-center justify-content-md-evenly col-12 col-md-6 col-lg-3 mb-3 p-0">
             <div class="card overflow-hidden" style="width: 18rem">
-                <img src="{{ $product['image_link'] ? asset('storage/product/image/' . $product['image_link']) : asset('/assets/images/default_product.jpg') }}" class="card-img-top" alt="{{ $product['product_name'] }}">
+                <!-- <img src="{{ $product['image_link'] ? asset('storage/product/image/' . $product['image_link']) : asset('/assets/images/default_product.jpg') }}" class="card-img-top" alt="{{ $product['product_name'] }}"> -->
                 <div class="card-body position-relative">
                     @if(\App\Models\ApplicableDiscount::where('fk_product', '=', $product->id)->first())
                     <div class="position-absolute bottom-0 end-0 w-100" style="height: 20px;">
@@ -345,8 +345,8 @@
                         </tbody>
                     </table>
                     <p class="m-0 text-secondary fw-bold">SUBTOTAL: ₱${subtotal.toFixed(2)}</p>
-                    <p class="m-0 text-secondary fw-bold">SALES TAX: ₱${(subtotal * 0.12).toFixed(2)}</p>
-                    <p class="m-0 text-secondary fw-bold">TOTAL: ₱${(subtotal + subtotal * 0.12).toFixed(2)}</p>
+                    <!-- <p class="m-0 text-secondary fw-bold">SALES TAX: ₱${(subtotal * 0.12).toFixed(2)}</p> -->
+                    <p class="m-0 text-secondary fw-bold">TOTAL: ₱${subtotal.toFixed(2)}</p>
                 </div>
                 <div class="modal-footer">
                     <h2 class="me-auto m-0">Thank You!</h2>
