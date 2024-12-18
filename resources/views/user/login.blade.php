@@ -64,7 +64,7 @@ Login
 @section('content')
 <div class="login-container">
     @include('layouts.messenger')
-    <img src="{{ asset('assets/images/logo.svg') }}" alt="HardParts Inc.">
+    <img src="{{ asset('assets/images/logo.jpg') }}" alt="HardParts Inc.">
     <form action="/login" method="POST">
         @csrf
 
