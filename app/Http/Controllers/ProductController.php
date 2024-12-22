@@ -42,10 +42,12 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'product_name' => ['required', 'unique:products'],
-            'category' => ['required', 'numeric'],
-            'supplier' => ['required', 'numeric'],
+            // 'category' => ['required', 'numeric'],
+            // 'supplier' => ['required', 'numeric'],
             'stock_quantity' => ['required', 'numeric'],
+            'original' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
+            'wholesale' => ['required', 'numeric'],
             'image' => ['nullable', File::image(), 'max:16000'],
             'description' => ['required'],
         ]);
@@ -53,8 +55,10 @@ class ProductController extends Controller
         $barcode = rand(100_000_000_000, 999_999_999_999);
 
         $validated['barcode'] = $barcode;
-        $validated['fk_category'] = $request->input('category');
-        $validated['fk_supplier'] = $request->input('supplier');
+        $validated['fk_category'] = 1;
+        $validated['fk_supplier'] = 1;
+        $validated['wholesale_price'] = $validated['wholesale'];
+        $validated['original_price'] = $validated['original'];
         $validated['available'] = $request->has('available');
 
         if ($request->hasFile('image')) {
@@ -75,7 +79,9 @@ class ProductController extends Controller
             'product_name' => $product->product_name,
             'fk_supplier' => $product->fk_supplier,
             'fk_category' => $product->fk_category,
+            'original_price' => $product->original_price,
             'price' => $product->price,
+            'wholesale_price' => $product->wholesale_price,
             'fk_product' => $product->id,
             'fk_user' => auth()->user()->user_id,
         ]);
@@ -106,15 +112,19 @@ class ProductController extends Controller
                 'required',
                 Rule::unique('products')->ignore($product),
             ],
-            'category' => ['required', 'numeric'],
-            'supplier' => ['required', 'numeric'],
+            // 'category' => ['required', 'numeric'],
+            // 'supplier' => ['required', 'numeric'],
+            'original' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
+            'wholesale' => ['required', 'numeric'],
             'image' => ['nullable', File::image(), 'max:16000'],
             'description' => ['required'],
         ]);
 
-        $validated['fk_category'] = $request->input('category');
-        $validated['fk_supplier'] = $request->input('supplier');
+        $validated['fk_category'] = 1;
+        $validated['fk_supplier'] = 1;
+        $validated['wholesale_price'] = $validated['wholesale'];
+        $validated['original_price'] = $validated['original'];
         $validated['available'] = $request->has('available');
 
         if ($request->hasFile('image')) {
@@ -133,7 +143,9 @@ class ProductController extends Controller
             $validated['product_name'] != $product->product_name ||
             $validated['fk_category'] != $product->fk_category ||
             $validated['fk_supplier'] != $product->fk_supplier ||
-            $validated['price'] != $product->price
+            $validated['price'] != $product->price ||
+            $validated['wholesale_price'] != $product->wholesale_price ||
+            $validated['original_price'] != $product->original_price
         ) {
             $validated['fk_user'] = auth()->user()->user_id;
             $validated['fk_product'] = $product->id;

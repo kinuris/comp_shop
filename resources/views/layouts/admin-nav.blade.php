@@ -10,7 +10,7 @@
 <!--     </div> -->
 <!-- </nav> -->
 
-<ul class="navbar navbar-expand-lg navbar-light" style="background-color: #233754;">
+<ul class="navbar navbar-expand-lg navbar-light" style="background-color: #2f2f2f;">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img class="nav-item navbar-brand" src="{{ asset('assets/images/logo.jpg') }}" style="height: 50px" alt="Logo">
@@ -21,13 +21,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="/employee" class="nav-link active text-secondary">Employees</a>
+                    <a href="/employee" class="nav-link active text-secondary">Accounts</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="/discount" class="nav-link active text-secondary">Discounts</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
-                    <a href="/product" class="nav-link active text-secondary">Products</a>
+                    <a href="/product" class="nav-link active text-secondary">Product List</a>
                 </li>
                 <li class="nav-item">
                     <a href="/password-change/{{ auth()->user()->user_id }}" class="nav-link active text-secondary">Change Password</a>

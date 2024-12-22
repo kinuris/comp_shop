@@ -5,5 +5,5 @@ Process Orders
 @endsection
 
 @section('content')
-<livewire:product-search />
+<livewire:product-search :wholesale=false />
 @endsection

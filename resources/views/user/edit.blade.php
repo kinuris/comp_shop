@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-Edit Employee
+Edit Account
 @endsection
 
 @section('content')

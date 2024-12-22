@@ -42,35 +42,37 @@ class DatabaseSeeder extends Seeder
             'role' => 'Admin'
         ]);
 
-        Category::create(['category' => 'Engine Components']);
-        Category::create(['category' => 'Electrical Components']);
-        Category::create(['category' => 'Braking System']);
-        Category::create(['category' => 'Suspension and Steering']);
-        Category::create(['category' => 'Fuel System']);
-        Category::create(['category' => 'Transmission and Drivetrain']);
-        Category::create(['category' => 'Exhaust System']);
-        Category::create(['category' => 'Wheels and Tires']);
-        Category::create(['category' => 'Body and Frame']);
-        Category::create(['category' => 'Control and Handlebar']);
-        Category::create(['category' => 'Lighting and Indicators']);
-        Category::create(['category' => 'Cooling System']);
-        Category::create(['category' => 'Accessories and Add-ons']);
+        // Category::create(['category' => 'Engine Components']);
+        // Category::create(['category' => 'Electrical Components']);
+        // Category::create(['category' => 'Braking System']);
+        // Category::create(['category' => 'Suspension and Steering']);
+        // Category::create(['category' => 'Fuel System']);
+        // Category::create(['category' => 'Transmission and Drivetrain']);
+        // Category::create(['category' => 'Exhaust System']);
+        // Category::create(['category' => 'Wheels and Tires']);
+        // Category::create(['category' => 'Body and Frame']);
+        // Category::create(['category' => 'Control and Handlebar']);
+        // Category::create(['category' => 'Lighting and Indicators']);
+        // Category::create(['category' => 'Cooling System']);
+        // Category::create(['category' => 'Accessories and Add-ons']);
+        Category::create(['category' => 'NOCATEGORY']);
 
-        Supplier::create(['company_name' => 'Shimano']);
-        Supplier::create(['company_name' => 'SRAM']);
-        Supplier::create(['company_name' => 'Campagnolo']);
-        Supplier::create(['company_name' => 'Crankbrothers']);
-        Supplier::create(['company_name' => 'FSA (Full Speed Ahead)']);
-        Supplier::create(['company_name' => 'Rocky Mountain']);
-        Supplier::create(['company_name' => 'Rotor Components']);
-        Supplier::create(['company_name' => 'HED Wheels']);
-        Supplier::create(['company_name' => 'Giro']);
-        Supplier::create(['company_name' => 'Bell Helmets']);
-        Supplier::create(['company_name' => 'Castelli']);
-        Supplier::create(['company_name' => 'Wahoo Fitness']);
-        Supplier::create(['company_name' => 'Blackburn']);
-        Supplier::create(['company_name' => 'Xlab']);
-        Supplier::create(['company_name' => 'SeaSucker']);
+        // Supplier::create(['company_name' => 'Shimano']);
+        // Supplier::create(['company_name' => 'SRAM']);
+        // Supplier::create(['company_name' => 'Campagnolo']);
+        // Supplier::create(['company_name' => 'Crankbrothers']);
+        // Supplier::create(['company_name' => 'FSA (Full Speed Ahead)']);
+        // Supplier::create(['company_name' => 'Rocky Mountain']);
+        // Supplier::create(['company_name' => 'Rotor Components']);
+        // Supplier::create(['company_name' => 'HED Wheels']);
+        // Supplier::create(['company_name' => 'Giro']);
+        // Supplier::create(['company_name' => 'Bell Helmets']);
+        // Supplier::create(['company_name' => 'Castelli']);
+        // Supplier::create(['company_name' => 'Wahoo Fitness']);
+        // Supplier::create(['company_name' => 'Blackburn']);
+        // Supplier::create(['company_name' => 'Xlab']);
+        // Supplier::create(['company_name' => 'SeaSucker']);
+        Supplier::create(['company_name' => 'NOCOMPANY']);
 
         PaymentMethod::create([
             'method_name' => 'GCash',
@@ -103,7 +105,7 @@ class DatabaseSeeder extends Seeder
             'fk_discount' => 2
         ]);
 
-        User::factory(10)->create();
+        // User::factory(10)->create();
         User::query()->create([
             'fk_role' => $admin->id,
             'fk_gender' => $male->id,

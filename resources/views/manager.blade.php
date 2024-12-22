@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-Manager Board
+Manager Account
 @endsection
 
 @section('content')

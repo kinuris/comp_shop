@@ -27,7 +27,7 @@ Edit Product
         @enderror
     </div>
 
-    <div class="row mb-2">
+    <!-- <div class="row mb-2">
         <div class="col form-group">
             <label for="category">Category:</label>
             <select class="form-select {{ $errors->has('category') ? 'is-invalid' : '' }}" name="category" id="category">
@@ -55,13 +55,29 @@ Edit Product
             </div>
             @enderror
         </div>
-    </div>
+    </div> -->
 
     <div class="row mb-2">
-        <div class="col form-group">
+        <div class="flex-column">
             <label for="price">Price:</label>
-            <input class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" type="number" name="price" id="price" value="{{ old('price', $product->price) }}">
+            <input value="{{ old('price', $product->price) }}" class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" type="number" name="price" id="price">
             @error('price')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+
+            <label class="mt-2" for="wholesale">Wholesale Price:</label>
+            <input value="{{ old('wholesale', $product->wholesale_price) }}" class="form-control {{ $errors->has('wholesale') ? 'is-invalid' : '' }}" type="number" name="wholesale" id="wholesale">
+            @error('wholesale')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+
+            <label class="mt-2" for="original">Original Price:</label>
+            <input value="{{ old('original', $product->original_price) }}" class="form-control {{ $errors->has('original') ? 'is-invalid' : '' }}" type="number" name="original" id="original">
+            @error('original')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>

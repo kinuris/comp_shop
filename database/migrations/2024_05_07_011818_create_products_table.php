@@ -21,7 +21,9 @@ return new class extends Migration
             $table->unsignedBigInteger('fk_category');
             $table->unsignedBigInteger('fk_supplier');
             $table->unsignedInteger('stock_quantity');
+            $table->unsignedBigInteger('original_price');
             $table->unsignedInteger('price');
+            $table->unsignedInteger('wholesale_price');
             $table->boolean('available');
             $table->text('description');
             $table->timestamps();

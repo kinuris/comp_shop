@@ -21,7 +21,7 @@ Edit Discount
 
         <div class="form-floating mb-3">
             <select class="form-select" name="type" id="type">
-                <option value="absolute" {{ $discount->isAbsolute() ? 'selected' : '' }}>Absolute Discount</option>
+                <option value="absolute" {{ $discount->isAbsolute() ? 'selected' : '' }}>Amount Discount</option>
                 <option value="percentage" {{ $discount->isAbsolute() ? '' : 'selected' }}>Percentage Discount</option>
             </select>
             <label for="type">Discount Type:</label>

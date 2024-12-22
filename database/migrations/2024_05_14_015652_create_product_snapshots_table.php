@@ -20,7 +20,10 @@ return new class extends Migration
             $table->unsignedBigInteger('fk_product');
             $table->unsignedBigInteger('fk_user');
 
+            $table->unsignedInteger('original_price');
             $table->unsignedInteger('price');
+            $table->unsignedInteger('wholesale_price');
+
             $table->timestamps();
 
             $table->foreign('fk_product')

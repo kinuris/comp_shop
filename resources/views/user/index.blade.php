@@ -1,14 +1,14 @@
 @extends('layouts.default')
 
 @section('title')
-Manage Employees
+Manage Accounts
 @endsection
 
 @section('content')
 @include('layouts.admin-nav')
 @include('layouts.messenger')
 <div class="container">
-    <h1>Manage Employees</h1>
+    <h1>Manage Accounts</h1>
     <a class="btn btn-primary mb-3" href="/employee/create">Create</a>
     <div class="row justify-content-evenly">
         @foreach($users as $user)

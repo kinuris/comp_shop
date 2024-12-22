@@ -8,7 +8,7 @@
 <!--     </div> -->
 <!-- </nav> -->
 
-<ul class="navbar navbar-expand-lg navbar-light" style="background-color: #233754;">
+<ul class="navbar navbar-expand-lg navbar-light" style="background-color: #2f2f2f;">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img class="nav-item navbar-brand" src="{{ asset('assets/images/logo.jpg') }}" style="height: 50px" alt="Logo">
@@ -22,7 +22,7 @@
                     <a href="/" class="nav-link active text-secondary">Process Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/history" class="nav-link active text-secondary">History</a>
+                    <a href="/history" class="nav-link active text-secondary">Records</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a href="/password-change/{{ auth()->user()->user_id }}" class="nav-link active text-secondary">Change Password</a>

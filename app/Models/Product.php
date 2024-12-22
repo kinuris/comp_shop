@@ -19,7 +19,9 @@ class Product extends Model
         'fk_category',
         'fk_supplier',
         'stock_quantity',
+        'original_price',
         'price',
+        'wholesale_price',
         'available',
         'description',
     ];

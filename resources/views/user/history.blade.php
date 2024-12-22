@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-History
+Records History
 @endsection
 
 @section('content')
@@ -14,12 +14,12 @@ History
 
 @include('layouts.messenger')
 <div class="container">
-    <h1>History (24 Hrs)</h1>
+    <h1>Records History</h1>
     <form action="">
         <div class="row mb-3">
             <div class="p-0 col form-floating">
                 <input class="form-control" type="text" name="search" id="search">
-                <label for="search">Search</label>
+                <label for="search">Search Transaction Date</label>
             </div>
             <button class="col-auto btn btn-primary ms-2" type="submit">Search</button>
         </div>
@@ -31,7 +31,7 @@ History
                 <h5 class="card-title">Transaction ID: {{ $tid }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Date of Transaction: 2024-06-15</h6>
                 @if(isset($peek_user))
-                <a href="/history/{{ $peek_user }}?modal={{ $tid }}" class="btn btn-primary">Generate Receipt</a>
+                <a href="/history/{{ $peek_user }}?modal={{ $tid }}" class="btn btn-primary">View Receipt</a>
                 @else
                 <a href="/history?modal={{ $tid }}" class="btn btn-primary">View Receipt</a>
                 @endif

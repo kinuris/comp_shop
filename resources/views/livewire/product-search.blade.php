@@ -1,11 +1,19 @@
 <div>
+    @if ($wholesale === false)
     @include('layouts.user-nav')
+    @else
+    @include('layouts.manager-nav')
+    @endif
     @include('layouts.messenger')
     <div class="container">
         <div class="card m-3">
             <div class="card-img-top">
                 <hr>
+                @if ($wholesale === false)
                 <h1 class="text-center">Shopping Cart</h1>
+                @else
+                <h1 class="text-center text-danger">WHOLESALE SHOP</h1>
+                @endif
                 <hr>
                 <div class="m-1 row">
                     <h2 class="col-4 text-end text-lg-start" style="font-size: 20px;">Unit</h2>
@@ -18,9 +26,9 @@
                     <p class="col-4 ps-lg-4 text-end text-lg-start {{ $product->stock_quantity < $qty ? 'text-danger' : '' }}">
                         <b>{{ $product->product_name }}</b>
                         @if(isset($this->discountAssoc[$product->id]))
-                        <img wire:click="chooseDiscount({{ $product->id }})" width="20px" src="{{ asset('assets/images/applied.png') }}" alt="Discounted Item">
+                        <!-- <img wire:click="chooseDiscount({{ $product->id }})" width="20px" src="{{ asset('assets/images/applied.png') }}" alt="Discounted Item"> -->
                         @else
-                        <img wire:click="chooseDiscount({{ $product->id }})" width="24px" src="{{ asset('assets/images/discount.png') }}" alt="Discounted Item">
+                        <!-- <img wire:click="chooseDiscount({{ $product->id }})" width="24px" src="{{ asset('assets/images/discount.png') }}" alt="Discounted Item"> -->
                         @endif
                     </p>
                     <p class="col-3 text-end text-lg-start" style="font-size: 20px;">
@@ -29,14 +37,15 @@
                         <a wire:click="addProduct({{ $product->id }})" class="text-decoration-none" style="font-size: 20px;">&gt;</a>
                     </p>
                     @if(isset($this->discountAssoc[$product->id]))
-                    <p class="col-4 text-end text-lg-start">₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->price) * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->price) }}</i></p>
+                    <p class="col-4 text-end text-lg-start">₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->wholesale_price) * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->wholesale_price) }}</i></p>
                     @else
-                    <p class="col-4 text-end text-lg-start">₱{{ $product->price * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ $product->price }}</i></p>
+                    <p class="col-4 text-end text-lg-start">₱{{ $product->wholesale_price * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ $product->wholesale_price }}</i></p>
                     @endif
                 </div>
                 @endforeach
             </div>
             <div class="card-body">
+                <input type="number" wire:model="rawDiscount" class="form-control mb-3" placeholder="DISCOUNT AMOUNT">
                 <div class="d-flex w-25 justify-content-between">
                     <p>Total:</p>
                     <p class="fw-bold">₱{{ $this->totalPrice }}</p>
@@ -77,7 +86,11 @@
                     @endif
                     <div class="row">
                         <h5 class="card-title fw-bold col m-0 {{ $product->stock_quantity === 0 ? 'text-decoration-line-through text-danger' : '' }}" style="color: #233754;">{{ $product['product_name'] }}</h5>
+                        @if ($wholesale === false)
                         <h5 class="col-auto fw-bold m-0" style="color: #233754;">₱{{ $product['price'] }}</h5>
+                        @else
+                        <h5 class="col-auto fw-bold m-0" style="color: #233754;">₱{{ $product['wholesale_price'] }}</h5>
+                        @endif
                     </div>
                     <p class="{{ $product->stock_quantity === 0 ? 'text-danger' : '' }}" style="font-size: 10px">STOCKS: ({{ $product->stock_quantity }})<b class="{{ $product->stock_quantity < $this->getSelectedQuantity($product->id) ? 'text-danger' : '' }}">{{ $this->getSelectedQuantity($product->id) ? ' x' . $this->getSelectedQuantity($product->id) : '' }}</b></p>
                     <p class="card-text">{{ $product->description }}</p>
@@ -314,13 +327,31 @@
         const subtotal = items.map(function(item, index) {
             if (discounts[item.id]) {
                 if (discounts[item.id].type === 'absolute') {
-                    return (item.price - discounts[item.id].absolute_discount) * quantities[index];
+                    <?php 
+                    if ($wholesale === false) {
+                        echo "return (item.price - discounts[item.id].absolute_discount) * quantities[index];";
+                    } else {
+                        echo "return (item.wholesale_price - discounts[item.id].absolute_discount) * quantities[index];";
+                    }
+                    ?>
                 } else {
-                    return item.price - (discounts[item.id].percentage_discount / 100) * item.price * quantities[index];
+                    <?php
+                    if ($wholesale === false) {
+                        echo "return item.price - (discounts[item.id].percentage_discount / 100) * item.price * quantities[index];"; 
+                    } else {
+                        echo "return item.wholesale_price - (discounts[item.id].percentage_discount / 100) * item.price * quantities[index];";
+                    }
+                    ?>
                 }
             }
 
-            return (item.price) * quantities[index];
+            <?php 
+            if ($wholesale === false) {
+                echo "return item.price * quantities[index];";
+            } else {
+                echo "return item.wholesale_price * quantities[index];";
+            }
+            ?>
         }).reduce((a, b) => a + b);
 
         modal.innerHTML = `
@@ -345,8 +376,8 @@
                         </tbody>
                     </table>
                     <p class="m-0 text-secondary fw-bold">SUBTOTAL: ₱${subtotal.toFixed(2)}</p>
-                    <!-- <p class="m-0 text-secondary fw-bold">SALES TAX: ₱${(subtotal * 0.12).toFixed(2)}</p> -->
-                    <p class="m-0 text-secondary fw-bold">TOTAL: ₱${subtotal.toFixed(2)}</p>
+                    <p class="m-0 text-danger fw-bold">DISCOUNT: -₱${transaction.raw_discount.toFixed(2)}</p>
+                    <p class="m-0 text-success fw-bold">TOTAL: ₱${(subtotal - transaction.raw_discount).toFixed(2)}</p>
                 </div>
                 <div class="modal-footer">
                     <h2 class="me-auto m-0">Thank You!</h2>
@@ -361,7 +392,9 @@
         </div>
     `;
 
+        @if(Auth::user()-> isAdmin() || Auth::user()-> isManager())
         modal.querySelector('#footer').appendChild(printBtn);
+        @endif
 
         return modal;
     }
@@ -374,10 +407,24 @@
 
             const quantity = quantities[index];
 
-            let amount = quantity * item.price;
+            <?php
+
+            if ($wholesale === false) {
+                echo "let amount = quantity * item.price;";
+            } else {
+                echo "let amount = quantity * item.wholesale_price;";
+            }
+
+            ?>
 
             if (!discount) {
-                amount = quantity * item.price;
+                <?php
+                if ($wholesale === false) {
+                    echo "amount = quantity * item.price;";
+                } else {
+                    echo "amount = quantity * item.wholesale_price;";
+                }
+                ?>
             } else if (discount.type === 'absolute') {
                 amount = amount - discount.absolute_discount * quantity;
             } else {
@@ -391,7 +438,13 @@
 <tr>
     <td>${item.product_name}</td>
     <td><b>x</b>${quantity}</td>
-    <td>₱${item.price}</td>
+    <?php 
+    if ($wholesale === false) {
+       echo '<td>₱${item.price}</td>'; 
+    } else {
+        echo '<td>₱${item.wholesale_price}</td>';
+    }
+    ?>
     <td>₱${amount.toFixed(2)}</td>
 </tr>
 `;

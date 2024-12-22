@@ -7,7 +7,7 @@ Login
 @section('style')
 <style>
     body {
-        background: linear-gradient(to bottom, #3a5785, #396482);
+        background: linear-gradient(to bottom, #f2f2f2, #ff0000);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -16,12 +16,13 @@ Login
     }
 
     .login-container {
-        background-color: #4c97b7;
+        background-color: #2f2f2f;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         padding: 30px;
-        width: max(33vw, 300px);
+        width: max(37vw, 300px);
         text-align: center;
+        label: text-decoration
     }
 
     .login-container h1 {
@@ -51,12 +52,12 @@ Login
     }
 
     .login-container .btn {
-        background-color: #ff9800;
+        background-color: #efc300;
         border: none;
     }
 
     .login-container .btn:hover {
-        background-color: #e88e00;
+        background-color: #ffd500;
     }
 </style>
 @endsection
@@ -64,13 +65,13 @@ Login
 @section('content')
 <div class="login-container">
     @include('layouts.messenger')
-    <img src="{{ asset('assets/images/logo.jpg') }}" alt="HardParts Inc.">
+    <img src="{{ asset('assets/images/logo.jpg') }}" alt="Yhamz">
     <form action="/login" method="POST">
         @csrf
 
         <div class="mb-3">
-            <label for="company-id" class="form-label text-white">Company ID:</label>
-            <input type="text" class="form-control {{ $errors->has('company_id') ? 'is-invalid' : '' }}" id="company-id" name="company_id" placeholder="Enter your company ID" required value="{{ old('company_id') }}">
+            <label for="company-id" class="form-label text-white" >User ID:</label>
+            <input type="text" class="form-control {{ $errors->has('company_id') ? 'is-invalid' : '' }}" id="company-id" name="company_id" placeholder="Enter your User ID" required value="{{ old('company_id') }}">
             @error('company_id')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -90,7 +91,7 @@ Login
 
         <a href="#" class="text-white">Forgot Password?</a>
 
-        <button type="submit" class="btn btn-primary w-100">Login</button>
+        <button type="submit" class="btn btn-primary w-100"><label for="Login" class="form-label text-black" class="form text-align: center;">Login</button>
     </form>
 </div>
 @endsection

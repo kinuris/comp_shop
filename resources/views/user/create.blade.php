@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-Create Employee
+Create Account
 @endsection
 
 @section('content')

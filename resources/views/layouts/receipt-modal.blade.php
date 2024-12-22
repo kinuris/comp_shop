@@ -52,9 +52,11 @@
                         @endforeach
                     </tbody>
                 </table>
-                <p class="m-0 text-secondary fw-bold">SUBTOTAL: ₱{{ round($subtotal, 2) }}</p>
+                <!--<p class="m-0 text-secondary fw-bold">SUBTOTAL: ₱{{ round($subtotal, 2) }}</p> -->
                 <!-- <p class="m-0 text-secondary fw-bold">SALES TAX: ₱{{ round($subtotal * 0.12, 2) }}</p> -->
-                <p class="m-0 text-secondary fw-bold">TOTAL: ₱{{ round($subtotal, 2) }}</p>
+                <p class="m-0 text-secondary">SUBTOTAL: ₱{{ round($subtotal, 2) }}</p>
+                <p class="m-0 text-danger">DISCOUNT: -₱{{ round($transaction->raw_discount, 2) }}</p>
+                <p class="m-0 text-success fw-bold">TOTAL: ₱{{ round($subtotal - $transaction->raw_discount, 2) }}</p>
             </div>
             <div class="modal-footer">
                 <h2 class="me-auto m-0">Thank You!</h2>
@@ -65,7 +67,9 @@
             </div>
             <div id="footer" class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                @if (Auth::user()->isAdmin() || Auth::user()->isManager())
                 <button type="button" class="btn btn-primary" onclick="printReceipt()">Print</button>
+                @endif
             </div>
         </div>
     </div>

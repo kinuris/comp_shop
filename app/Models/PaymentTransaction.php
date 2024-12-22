@@ -19,15 +19,19 @@ class PaymentTransaction extends Model
         'fk_user',
         'fk_payment_method',
         'fk_discount',
+        'raw_discount',
+        'is_wholesale',
     ];
 
-    static function create(int $userId, int $methodId, ?int $discountId): PaymentTransaction
+    static function create(int $userId, int $methodId, ?int $discountId, ?int $rawDiscount, ?bool $wholesale): PaymentTransaction
     {
         return PaymentTransaction::query()->create([
             'id' => v4(),
             'fk_user' => $userId,
             'fk_payment_method' => $methodId,
             'fk_discount' => $discountId,
+            'raw_discount' => $rawDiscount,
+            'is_wholesale' => $wholesale,
         ]);
     }
 

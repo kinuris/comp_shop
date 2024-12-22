@@ -19,7 +19,9 @@ class ProductSnapshot extends Model
         'fk_category',
         'fk_supplier',
         'fk_user',
+        'original_price',
         'price',
+        'wholesale_price',
     ];
 
     static function firstOf($id): ProductSnapshot|null
@@ -108,6 +110,14 @@ class ProductSnapshot extends Model
 
         if ($to->price !== $this->price) {
             $diffs['price'] = [$this->price, $to->price];
+        }
+
+        if ($to->wholesale_price !== $this->wholesale_price) {
+            $diffs['wholesale_price'] = [$this->wholesale_price, $to->wholesale_price];
+        }
+
+        if ($to->original_price !== $this->original_price) {
+            $diffs['original_price'] = [$this->original_price, $to->original_price];
         }
 
         return $diffs;

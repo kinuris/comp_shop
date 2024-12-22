@@ -37,8 +37,14 @@ class ProductSearch extends Component
     #[Url(as: 'd')]
     public int $generalDiscount;
 
-    public function mount()
+    #[Url(as: 'rd')]
+    public int $rawDiscount;
+
+    public bool $wholesale;
+
+    public function mount($wholesale)
     {
+        $this->wholesale = $wholesale;
         $this->method = PaymentMethod::all()->last()->id;
         $this->generalDiscount = -1;
     }
@@ -50,10 +56,18 @@ class ProductSearch extends Component
             $product = Product::query()->find($id);
 
             if (isset($this->discountAssoc[$id])) {
-                return Discount::query()->find($this->discountAssoc[$id])->solveFinal($product->price);
+                if ($this->wholesale === false) {
+                    return Discount::query()->find($this->discountAssoc[$id])->solveFinal($product->price);
+                } else {
+                    return Discount::query()->find($this->discountAssoc[$id])->solveFinal($product->wholesale_price);
+                }
             }
 
-            return $product->price;
+            if ($this->wholesale === false) {
+                return $product->price;
+            } else {
+                return $product->wholesale_price;
+            }
         }, $this->selectedItems);
 
         return array_sum($prices);
@@ -103,7 +117,7 @@ class ProductSearch extends Component
             ->get()
             ->toArray();
 
-        $applicable = array_map(fn ($apd) => $apd['fk_discount'], $applicable);
+        $applicable = array_map(fn($apd) => $apd['fk_discount'], $applicable);
 
         $raw = Discount::query()
             ->where('disabled', '=', false)
@@ -137,7 +151,7 @@ class ProductSearch extends Component
             ->get()
             ->toArray();
 
-        $applicable = array_map(fn ($apd) => $apd['fk_discount'], $applicable);
+        $applicable = array_map(fn($apd) => $apd['fk_discount'], $applicable);
 
         $raw = Discount::query()
             ->where('disabled', '=', false)
@@ -201,7 +215,7 @@ class ProductSearch extends Component
         }
 
         // NOTE: Custom implementation of create method
-        $transaction = PaymentTransaction::create(Auth::user()->user_id, $this->method, null);
+        $transaction = PaymentTransaction::create(Auth::user()->user_id, $this->method, null, $this->rawDiscount ?? 0, $this->wholesale);
         foreach ($grouped as $id => $qty) {
             $latestSnapshot = ProductSnapshot::latestOf($id);
             $record = Product::query()->find($id);
@@ -223,7 +237,7 @@ class ProductSearch extends Component
             items: $items,
             quantities: $quantities,
             transaction: $transaction,
-            discounts: array_map(fn ($id) => Discount::query()->find($id), $this->discountAssoc),
+            discounts: array_map(fn($id) => Discount::query()->find($id), $this->discountAssoc),
             method: PaymentMethod::query()->find($transaction->fk_payment_method),
         );
         $this->selectedItems = array();
@@ -252,7 +266,7 @@ class ProductSearch extends Component
             return;
         }
 
-        if (count(array_filter($this->selectedItems, fn ($pid) => $id === $pid)) === 1) {
+        if (count(array_filter($this->selectedItems, fn($pid) => $id === $pid)) === 1) {
             unset($this->discountAssoc[$id]);
         }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PaymentTransactionController;
+use App\Http\Controllers\WholeSaleController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Discount;
 use App\Models\PaymentMethod;
@@ -63,9 +64,15 @@ Route::controller(ProductController::class)
         Route::get('/product/avail/toggle/{product}', 'toggle_availability')->can('delete', Product::class);
     });
 
+Route::controller(WholeSaleController::class)
+    ->middleware('auth')
+    ->group(function() {
+        Route::get('/wholesale', 'index')->can('viewAny', Product::class);
+    });
+
 Route::controller(AnalyticsController::class);
 
-// NOTE: Admin related controllersData-Driven Strategy: Organizations might prioritize collecting and analyzing data to inform their business decisions, aiming to improve efficiency, customer experience, and drive innovation
+// NOTE: Admin related controllers
 
 Route::controller(PaymentMethodController::class)
     ->middleware('auth')

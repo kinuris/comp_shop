@@ -22,6 +22,12 @@ return new class extends Migration
             $table->unsignedBigInteger('fk_discount') // NOTE: Discount applied with this method ONLY ONE DISCOUNT CAN BE APPLIED
                 ->nullable();
 
+            $table->unsignedInteger('raw_discount')
+                ->default(0);
+
+            $table->boolean('is_wholesale')
+                ->default(false);
+
             $table->timestamps();
 
             $table->foreign('fk_user')
