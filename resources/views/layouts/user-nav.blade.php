@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="/" class="nav-link active text-secondary">Process Orders</a>
+                    <a href="/" class="nav-link active text-secondary">Retail Price</a>
                 </li>
                 <li class="nav-item">
                     <a href="/history" class="nav-link active text-secondary">Records</a>

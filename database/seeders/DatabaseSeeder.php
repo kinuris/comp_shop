@@ -85,12 +85,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         PaymentMethod::create([
-            'method_name' => 'Cash',
+            'method_name' => 'Home Credit',
             'available' => true,
         ]);
 
         PaymentMethod::create([
-            'method_name' => 'Home Credit',
+            'method_name' => 'Cash',
             'available' => true,
         ]);
 

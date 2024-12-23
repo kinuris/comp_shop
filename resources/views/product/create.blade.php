@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-Create Product
+Add Product
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Create Product
 
 @include('layouts.messenger')
 <form class="container" action="/product/create" method="post" enctype="multipart/form-data">
-    <h1>Create Product</h1>
+    <h1>Add Product</h1>
     @csrf
 
     <div class="form-group mb-2">
@@ -70,7 +70,7 @@ Create Product
 
         <div class="col form-group">
             <div class="flex-column">
-                <label for="price">Price:</label>
+                <label for="price">Retail Price:</label>
                 <input class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" type="number" name="price" id="price">
                 @error('price')
                 <div class="invalid-feedback">
@@ -86,7 +86,7 @@ Create Product
                 </div>
                 @enderror
 
-                <label class="mt-2" for="original">Original Price:</label>
+                <label class="mt-2" for="original">Cost:</label>
                 <input class="form-control {{ $errors->has('original') ? 'is-invalid' : '' }}" type="number" name="original" id="original">
                 @error('original')
                 <div class="invalid-feedback">
@@ -97,7 +97,7 @@ Create Product
         </div>
     </div>
 
-    <div class="row mb-2">
+    <!--<div class="row mb-2">
         <div class="col form-group">
             <label for="available">Available:</label>
             <input class="form-check-input {{ $errors->has('available') ? 'is-invalid' : '' }}" type="checkbox" name="available" id="available" checked>
@@ -130,6 +130,6 @@ Create Product
     </div>
 
     <a href="/product" class="btn btn-danger">Back</a>
-    <input class="btn btn-primary" type="submit" value="Submit">
+    <input class="btn btn-primary" type="Submit" value="Submit">
 </form>
 @endsection

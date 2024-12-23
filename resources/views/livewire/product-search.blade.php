@@ -12,7 +12,7 @@
                 @if ($wholesale === false)
                 <h1 class="text-center">Shopping Cart</h1>
                 @else
-                <h1 class="text-center text-danger">WHOLESALE SHOP</h1>
+                <h1 class="text-center text-danger">Wholesale Cart</h1>
                 @endif
                 <hr>
                 <div class="m-1 row">
@@ -37,9 +37,17 @@
                         <a wire:click="addProduct({{ $product->id }})" class="text-decoration-none" style="font-size: 20px;">&gt;</a>
                     </p>
                     @if(isset($this->discountAssoc[$product->id]))
+                    @if ($wholesale === false)
+                    <p class="col-4 text-end text-lg-start">₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->price) * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->price) }}</i></p>
+                    @else
                     <p class="col-4 text-end text-lg-start">₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->wholesale_price) * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ \App\Models\Discount::find($this->discountAssoc[$product->id])->solveFinal($product->wholesale_price) }}</i></p>
+                    @endif
+                    @else
+                    @if ($wholesale === false)
+                    <p class="col-4 text-end text-lg-start">₱{{ $product->price * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ $product->price }}</i></p>
                     @else
                     <p class="col-4 text-end text-lg-start">₱{{ $product->wholesale_price * $qty }} <i class="d-block d-md-inline" style="font-size: 12px; color: grey;">{{ $qty }} x ₱{{ $product->wholesale_price }}</i></p>
+                    @endif
                     @endif
                 </div>
                 @endforeach

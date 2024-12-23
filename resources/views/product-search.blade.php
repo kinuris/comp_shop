@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-Process Orders
+Retail Price
 @endsection
 
 @section('content')

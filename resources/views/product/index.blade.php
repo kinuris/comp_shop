@@ -16,7 +16,7 @@ Product List
 <div class="container p-0 my-2">
     <form class="row w-75 mx-auto">
         <a class="btn btn-primary col-md-auto d-flex align-items-center" href="/product/create">
-            <p class="m-0">Create Product</p>
+            <p class="m-0">Add Product</p>
         </a>
         <div class="col form-floating p-0 m-0 mx-md-2 mb-2 mb-sm-0">
             <input class="form-control" type="text" name="search" id="search" value="{{ request()->query('search') }}">

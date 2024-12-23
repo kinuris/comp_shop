@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="/wholesale" class="nav-link active text-secondary">Whole Sale</a>
+                    <a href="/wholesale" class="nav-link active text-secondary">Wholesale Price</a>
                 </li>
                 <li class="nav-item">
                     <a href="/product" class="nav-link active text-secondary">Product List</a>
