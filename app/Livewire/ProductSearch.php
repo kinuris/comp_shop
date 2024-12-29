@@ -22,13 +22,15 @@ class ProductSearch extends Component
 {
     use WithPagination;
 
+    public bool $wholesale;
+
     #[Url(as: 'q')]
     public string $search = '';
 
-    #[Session(key: 'items')]
+    #[Url(as: 'i')]
     public array $selectedItems = array();
 
-    #[Session(key: 'discounts')]
+    #[Url(as: 'di')]
     public array $discountAssoc = array();
 
     #[Url(as: 'm')]
@@ -38,9 +40,7 @@ class ProductSearch extends Component
     public int $generalDiscount;
 
     #[Url(as: 'rd')]
-    public int $rawDiscount;
-
-    public bool $wholesale;
+    public ?int $rawDiscount;
 
     public function mount($wholesale)
     {
@@ -240,8 +240,10 @@ class ProductSearch extends Component
             discounts: array_map(fn($id) => Discount::query()->find($id), $this->discountAssoc),
             method: PaymentMethod::query()->find($transaction->fk_payment_method),
         );
+
         $this->selectedItems = array();
         $this->discountAssoc = array();
+        $this->rawDiscount = null;
     }
 
     public function addProduct(int $id)

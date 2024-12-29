@@ -21,7 +21,8 @@ Manage Accounts
             </div>
             <div class="row mx-1">
                 @if($user->getRole()->role === 'Manager')
-                <a class="col btn btn-primary mb-2" href="/history/{{ $user->user_id }}">View Changes</a>
+                <a class="col btn btn-primary mb-2" href="/history/{{ $user->user_id }}">View History</a>
+                <a href="/history/{{ $user->user_id }}?mode=changelog" class="col btn btn-success ms-2 mb-2">View Changes</a>
                 @else
                 <a class="col btn btn-primary mb-2" href="/history/{{ $user->user_id }}">View History</a>
                 @endif

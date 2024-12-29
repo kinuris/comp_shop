@@ -18,10 +18,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <a href="/" class="nav-link active text-secondary">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/retail" class="nav-link active text-secondary">Retail Price</a>
+                </li>
+                <li class="nav-item">
                     <a href="/wholesale" class="nav-link active text-secondary">Wholesale Price</a>
                 </li>
                 <li class="nav-item">
                     <a href="/product" class="nav-link active text-secondary">Product List</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/history" class="nav-link active text-secondary">History</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a href="/password-change/{{ auth()->user()->user_id }}" class="nav-link active text-secondary">Change Password</a>

@@ -30,21 +30,21 @@
                             @php($discount = \App\Models\Discount::find($discounts[$pid]))
                             @if($discount->type === 'absolute')
 
-                            @php($price = $product->price - $discount->absolute_discount)
+                            @php($price = ($transaction->is_wholesale ? $product->wholesale_price : $product->price) - $discount->absolute_discount)
                             <td>₱{{ $price }}</td>
                             <?php $total += $price * $qty ?>
 
                             @else
 
-                            @php($price = $product->price - ($discount->percentage_discount / 100) * $product->price)
+                            @php($price = ($transaction->is_wholesale ? $product->wholesale_price : $product->price) - ($discount->percentage_discount / 100) * ($transaction->is_wholesale ? $product->wholesale_price : $product->price))
                             <td>₱{{ $price }}</td>
                             <?php $total += $price * $qty ?>
 
                             @endif
 
                             @else
-                            <td>₱{{ $product->price }}</td>
-                            <?php $total += $product->price * $qty ?>
+                            <td>₱{{ $transaction->is_wholesale ? $product->wholesale_price : $product->price }}</td>
+                            <?php $total += ($transaction->is_wholesale ? $product->wholesale_price : $product->price) * $qty ?>
                             @endif
                             <td>₱{{ round($total, 2) }}</td>
                         </tr>

@@ -21,11 +21,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <a href="/" class="nav-link active text-secondary">Home</a>
+                </li>
+                <li class="nav-item">
                     <a href="/employee" class="nav-link active text-secondary">Accounts</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a href="/discount" class="nav-link active text-secondary">Discounts</a>
                 </li> -->
+                <li class="nav-item">
+                    <a href="/summary" class="nav-link active text-secondary">Summary</a>
+                </li>
                 <li class="nav-item">
                     <a href="/product" class="nav-link active text-secondary">Product List</a>
                 </li>

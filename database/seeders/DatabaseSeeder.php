@@ -30,10 +30,6 @@ class DatabaseSeeder extends Seeder
             'gender' => 'Female'
         ]);
 
-        $employee = Role::create([
-            'role' => 'Employee'
-        ]);
-
         $manager = Role::create([
             'role' => 'Manager'
         ]);
@@ -109,9 +105,9 @@ class DatabaseSeeder extends Seeder
         User::query()->create([
             'fk_role' => $admin->id,
             'fk_gender' => $male->id,
-            'first_name' => 'Ezekiel',
-            'middle_name' => 'Zekie',
-            'last_name' => 'Nigeria',
+            'first_name' => 'Bhon',
+            'middle_name' => null,
+            'last_name' => 'Durana',
             'company_id' => 'HP-0000',
             'birthdate' => '2024-12-12',
             'password' => password_hash('password', PASSWORD_BCRYPT),
@@ -122,9 +118,9 @@ class DatabaseSeeder extends Seeder
         User::query()->create([
             'fk_role' => $manager->id,
             'fk_gender' => $male->id,
-            'first_name' => 'Manager',
-            'middle_name' => 'Zekie',
-            'last_name' => 'Nigeria',
+            'first_name' => 'Bhon',
+            'middle_name' => null,
+            'last_name' => 'Durana',
             'company_id' => 'HP-0001',
             'birthdate' => '2024-12-12',
             'password' => password_hash('password', PASSWORD_BCRYPT),
@@ -132,18 +128,18 @@ class DatabaseSeeder extends Seeder
             'contact_number' => '09999999999',
         ]);
 
-        User::query()->create([
-            'fk_role' => $employee->id,
-            'fk_gender' => $male->id,
-            'first_name' => 'Employee',
-            'middle_name' => 'Zekie',
-            'last_name' => 'Nigeria',
-            'company_id' => 'HP-0002',
-            'birthdate' => '2024-12-12',
-            'password' => password_hash('password', PASSWORD_BCRYPT),
-            'suspended' => false,
-            'contact_number' => '09999999999',
-        ]);
+        // User::query()->create([
+        //     'fk_role' => $employee->id,
+        //     'fk_gender' => $male->id,
+        //     'first_name' => 'Employee',
+        //     'middle_name' => 'Zekie',
+        //     'last_name' => 'Nigeria',
+        //     'company_id' => 'HP-0002',
+        //     'birthdate' => '2024-12-12',
+        //     'password' => password_hash('password', PASSWORD_BCRYPT),
+        //     'suspended' => false,
+        //     'contact_number' => '09999999999',
+        // ]);
 
         foreach (Product::all() as $product) {
             ProductSnapshot::create([

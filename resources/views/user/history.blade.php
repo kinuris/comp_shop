@@ -9,7 +9,7 @@ Records History
 @if(auth()->user()->isAdmin())
 @include('layouts.admin-nav')
 @else
-@include('layouts.user-nav')
+@include('layouts.manager-nav')
 @endif
 
 @include('layouts.messenger')

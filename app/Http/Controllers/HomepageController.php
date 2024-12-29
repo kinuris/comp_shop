@@ -30,4 +30,8 @@ class HomepageController extends Controller
 
         return view('product-search');
     }
+
+    public function retail() {
+        return view('product-search');
+    }
 }

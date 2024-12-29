@@ -103,7 +103,7 @@ class UserController extends Controller
 
     public function peek_history(Request $request, User $user)
     {
-        if ($user->isManager() || $user->isAdmin()) {
+        if (($user->isManager() && $request->query('mode') === 'changelog') || $user->isAdmin()) {
             $productChanges = ProductSnapshot::query()
                 ->where('fk_user', '=', $user->user_id)
                 ->get();
@@ -130,7 +130,7 @@ class UserController extends Controller
                 ->with('changes', $combined);
         }
 
-        if ($user->isEmployee()) {
+        if ($user->isManager() || $user->isEmployee()) {
             $history = $user->getProcessedOrders() ?? [];
 
             if ($request->query('search')) {

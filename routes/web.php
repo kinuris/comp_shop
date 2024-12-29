@@ -20,6 +20,10 @@ Route::get('/', [HomepageController::class, 'index'])
 // Route::post('/order/process', [HomepageController::class, 'process_order'])
 //     ->can('process', Product::class);
 
+Route::get('/retail', [HomepageController::class, 'retail'])
+    ->middleware('auth')
+    ->can('viewAny', Product::class);
+
 Route::get('/history', [UserController::class, 'history'])
     ->middleware('auth');
 
@@ -123,3 +127,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', [UserController::class, 'login_view'])->name('login');
     Route::post('/login', [UserController::class, 'login']);
 });
+
+Route::get('/summary', [AnalyticsController::class, 'summary'])
+    ->middleware('auth')
+    ->can('viewAny', Discount::class);

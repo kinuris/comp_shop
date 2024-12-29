@@ -1,9 +1,5 @@
 <div>
-    @if ($wholesale === false)
-    @include('layouts.user-nav')
-    @else
     @include('layouts.manager-nav')
-    @endif
     @include('layouts.messenger')
     <div class="container">
         <div class="card m-3">
@@ -335,7 +331,11 @@
         const subtotal = items.map(function(item, index) {
             if (discounts[item.id]) {
                 if (discounts[item.id].type === 'absolute') {
-                    <?php 
+                    <?php
+
+                    use App\Models\User;
+                    use Illuminate\Support\Facades\Auth;
+
                     if ($wholesale === false) {
                         echo "return (item.price - discounts[item.id].absolute_discount) * quantities[index];";
                     } else {
@@ -345,7 +345,7 @@
                 } else {
                     <?php
                     if ($wholesale === false) {
-                        echo "return item.price - (discounts[item.id].percentage_discount / 100) * item.price * quantities[index];"; 
+                        echo "return item.price - (discounts[item.id].percentage_discount / 100) * item.price * quantities[index];";
                     } else {
                         echo "return item.wholesale_price - (discounts[item.id].percentage_discount / 100) * item.price * quantities[index];";
                     }
@@ -353,7 +353,7 @@
                 }
             }
 
-            <?php 
+            <?php
             if ($wholesale === false) {
                 echo "return item.price * quantities[index];";
             } else {
@@ -394,15 +394,16 @@
                     <p class="modal-title text-muted me-auto m-0 w-100" style="font-size: 12px">Payment Method: ${method.method_name}</p>
                 </div>
                 <div id="footer" class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     `;
-
-        @if(Auth::user()-> isAdmin() || Auth::user()-> isManager())
-        modal.querySelector('#footer').appendChild(printBtn);
-        @endif
+        <?php
+        if (Auth::user()->isAdmin() || Auth::user()->isManager()) {
+            echo "modal.querySelector('#footer').appendChild(printBtn);";
+        }
+        ?>
 
         return modal;
     }
@@ -446,9 +447,9 @@
 <tr>
     <td>${item.product_name}</td>
     <td><b>x</b>${quantity}</td>
-    <?php 
+    <?php
     if ($wholesale === false) {
-       echo '<td>₱${item.price}</td>'; 
+        echo '<td>₱${item.price}</td>';
     } else {
         echo '<td>₱${item.wholesale_price}</td>';
     }

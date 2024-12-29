@@ -49,10 +49,14 @@ class ProductController extends Controller
             'price' => ['required', 'numeric'],
             'wholesale' => ['required', 'numeric'],
             'image' => ['nullable', File::image(), 'max:16000'],
-            'description' => ['required'],
+            'description' => ['nullable'],
         ]);
 
         $barcode = rand(100_000_000_000, 999_999_999_999);
+
+        if (!isset($validated['description'])) {
+            $validated['description'] = '';
+        }
 
         $validated['barcode'] = $barcode;
         $validated['fk_category'] = 1;
@@ -118,8 +122,12 @@ class ProductController extends Controller
             'price' => ['required', 'numeric'],
             'wholesale' => ['required', 'numeric'],
             'image' => ['nullable', File::image(), 'max:16000'],
-            'description' => ['required'],
+            'description' => ['nullable'],
         ]);
+
+        if (!isset($validated['description'])) {
+            $validated['description'] = '';
+        }
 
         $validated['fk_category'] = 1;
         $validated['fk_supplier'] = 1;

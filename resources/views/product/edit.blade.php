@@ -95,7 +95,7 @@ Edit Product
         </div> -->
     </div>
 
-    <!--<div class="col-auto form-group mb-2">
+    <div class="col-auto form-group mb-2">
         <label for="available">Available:</label>
         <input class="form-check-input {{ $errors->has('available') ? 'is-invalid' : '' }}" type="checkbox" name="available" id="available" {{ old('available', $product->available) ? 'checked' : '' }}>
         @error('available')
@@ -103,7 +103,7 @@ Edit Product
             {{ $message }}
         </div>
         @enderror
-    </div>-->
+    </div>
 
     <div class="form-group mb-3">
         <label for="description">Product Description:</label>
