@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
             'birthdate' => '2024-12-12',
             'password' => password_hash('password', PASSWORD_BCRYPT),
             'suspended' => false,
-            'contact_number' => '09999999999',
+            'contact_number' => '09123456789',
         ]);
 
         // User::query()->create([
