@@ -130,4 +130,4 @@ Route::middleware(['guest'])->group(function () {
 
 Route::get('/summary', [AnalyticsController::class, 'summary'])
     ->middleware('auth')
-    ->can('viewAny', Discount::class);
+    ->can('viewAny', Product::class);

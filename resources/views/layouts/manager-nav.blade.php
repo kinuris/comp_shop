@@ -21,6 +21,9 @@
                     <a href="/" class="nav-link active text-secondary">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a href="/summary" class="nav-link active text-secondary">Summary</a>
+                </li>
+                <li class="nav-item">
                     <a href="/retail" class="nav-link active text-secondary">Retail Price</a>
                 </li>
                 <li class="nav-item">

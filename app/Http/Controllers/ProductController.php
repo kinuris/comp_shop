@@ -47,7 +47,7 @@ class ProductController extends Controller
             'stock_quantity' => ['required', 'numeric'],
             'original' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
-            'wholesale' => ['required', 'numeric'],
+            'wholesale' => ['nullable', 'numeric'],
             'image' => ['nullable', File::image(), 'max:16000'],
             'description' => ['nullable'],
         ]);

@@ -209,7 +209,7 @@ class ProductSearch extends Component
         }
 
         if (count($insufficient) > 0) {
-            $this->dispatch('insufficient', items: $insufficient);
+            $this->dispatch('insufficient');
 
             return;
         }
@@ -248,6 +248,14 @@ class ProductSearch extends Component
 
     public function addProduct(int $id)
     {
+        $product = Product::query()->find($id);
+        $isOutOfStock = ($product->stock_quantity === 0 && $this->getSelectedQuantity($id) === null) || ($product->stock_quantity < $this->getSelectedQuantity($id) + 1);
+        if ($isOutOfStock) {
+            $this->dispatch('insufficient', items: [$product]);
+
+            return;
+        }
+
         array_push($this->selectedItems, $id);
     }
 
@@ -282,6 +290,10 @@ class ProductSearch extends Component
         $products = Product::query()
             ->where('product_name', 'LIKE', "%$this->search%")
             ->where('available', '=', '1');
+
+        if ($this->wholesale) {
+            $products = $products->where('wholesale_price', '>', '0');
+        }
 
         // TODO: Change to query Discount where id exists in GeneralDiscount
         $generalDiscounts = DB::table('general_discounts')

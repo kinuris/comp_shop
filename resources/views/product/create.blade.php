@@ -70,7 +70,15 @@ Add Product
 
         <div class="col form-group">
             <div class="flex-column">
-                <label for="price">Retail Price:</label>
+                <label for="original">Cost:</label>
+                <input class="form-control {{ $errors->has('original') ? 'is-invalid' : '' }}" type="number" name="original" id="original">
+                @error('original')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+
+                @enderror
+                <label class="mt-2" for="price">Retail Price:</label>
                 <input class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" type="number" name="price" id="price">
                 @error('price')
                 <div class="invalid-feedback">
@@ -79,16 +87,8 @@ Add Product
                 @enderror
 
                 <label class="mt-2" for="wholesale">Wholesale Price:</label>
-                <input class="form-control {{ $errors->has('wholesale') ? 'is-invalid' : '' }}" type="number" name="wholesale" id="wholesale">
+                <input placeholder="Optional" class="form-control {{ $errors->has('wholesale') ? 'is-invalid' : '' }}" type="number" name="wholesale" id="wholesale">
                 @error('wholesale')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
-
-                <label class="mt-2" for="original">Cost:</label>
-                <input class="form-control {{ $errors->has('original') ? 'is-invalid' : '' }}" type="number" name="original" id="original">
-                @error('original')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -97,7 +97,7 @@ Add Product
         </div>
     </div>
 
-    <div class="col form-group">
+    <div class="col form-group d-none">
         <label for="available">Available:</label>
         <input class="form-check-input {{ $errors->has('available') ? 'is-invalid' : '' }}" type="checkbox" name="available" id="available" checked>
         @error('available')

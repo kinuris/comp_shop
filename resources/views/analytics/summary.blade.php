@@ -3,7 +3,11 @@
 @section('title', 'Analytics')
 
 @section('content')
+@if (Auth::user()->isAdmin())
 @include('layouts.admin-nav')
+@else
+@include('layouts.manager-nav')
+@endif
 <div class="container">
     <h1>Total Products: {{ count($products) }}</h1>
     <h3 class="text-success m-0">In Stock: {{ count(array_filter($products->toArray(), fn($product) => $product['stock_quantity'] > 0)) }}</h3>

@@ -28,9 +28,9 @@
                         @endif
                     </p>
                     <p class="col-3 text-end text-lg-start" style="font-size: 20px;">
-                        <a wire:click="removeProduct({{ $product->id }})" class="text-decoration-none" style="font-size: 20px;">&lt;</a>
+                        <a wire:click="removeProduct({{ $product->id }})" class="text-decoration-none text-secondary" style="font-size: 20px;">-</a>
                         {{ $qty }}
-                        <a wire:click="addProduct({{ $product->id }})" class="text-decoration-none" style="font-size: 20px;">&gt;</a>
+                        <a wire:click="addProduct({{ $product->id }})" class="text-decoration-none text-primary" style="font-size: 20px;">+</a>
                     </p>
                     @if(isset($this->discountAssoc[$product->id]))
                     @if ($wholesale === false)
@@ -114,7 +114,7 @@
                     <h5 class="modal-title" id="insufficientModal">Insufficient Stock</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div>
                     @foreach($this->insufficient as $item)
                     <p><b class="text-danger"><i>{{ $item->product_name }}</i></b> has <b class="text-danger"><i>{{ $item->stock_quantity }}</i></b> items left. <b class="text-danger">{{ $item->required }}</b> Required.</p>
                     @endforeach
@@ -394,16 +394,11 @@
                     <p class="modal-title text-muted me-auto m-0 w-100" style="font-size: 12px">Payment Method: ${method.method_name}</p>
                 </div>
                 <div id="footer" class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
                 </div>
             </div>
         </div>
     `;
-        <?php
-        if (Auth::user()->isAdmin() || Auth::user()->isManager()) {
-            echo "modal.querySelector('#footer').appendChild(printBtn);";
-        }
-        ?>
 
         return modal;
     }

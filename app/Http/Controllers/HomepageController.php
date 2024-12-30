@@ -21,7 +21,7 @@ class HomepageController extends Controller
             ->get();
 
         if (Auth::user()->isManager()) {
-            return view('manager', compact('start', 'end', 'transactions'));
+            return view('product-search');
         }
 
         if (Auth::user()->isAdmin()) {

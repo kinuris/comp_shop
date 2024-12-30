@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->unsignedInteger('original_price');
             $table->unsignedInteger('price');
-            $table->unsignedInteger('wholesale_price');
+            $table->unsignedInteger('wholesale_price')->nullable();
 
             $table->timestamps();
 

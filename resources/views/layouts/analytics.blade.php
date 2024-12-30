@@ -6,18 +6,18 @@
                 <form>
                     <div class="mb-3">
                         <label for="startDate" class="form-label">Start Date</label>
-                        <input name="start" type="datetime-local" class="form-control" id="startDate" step="1" value="{{ $start->format("Y-m-d\TH:i:s") }}" required>
+                        <input name="start" type="date" class="form-control" id="startDate" step="1" value="{{ $start->format("Y-m-d") }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="endDate" class="form-label">End Date</label>
-                        <input name="end" type="datetime-local" class="form-control" id="endDate" step="1" value="{{ $end->format("Y-m-d\TH:i:s") }}" required>
+                        <input name="end" type="date" class="form-control" id="endDate" step="1" value="{{ $end->format("Y-m-d") }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary">View Report</button>
                 </form>
             </div>
         </div>
     </div>
-    <h3 class="mt-4 text-center">Total Sales: <i>{{ $start->format("m/d/Y - H:i:s") }}</i> to <i>{{ $end->format("m/d/Y - H:i:s") }}</i></h3>
+    <h3 class="mt-4 text-center">Total Sales: <i>{{ $start->format("M. d, Y") }}</i> to <i>{{ $end->format("M. d, Y") }}</i></h3>
     <?php
 
     use App\Models\Product;
@@ -86,10 +86,10 @@
                 <tr>
                     <td>{{ $product->product_name }}</td>
                     <td>x{{ $qty }}</td>
-                    @if ($items[$loop->index][1] === false)
+                    @if ((bool) $items[$loop->index][1] === false)
                     <td>₱{{ $product->price * $qty }}</td>
                     @else
-                    <td>₱{{ $product->wholesale_price* $qty }}</td>
+                    <td>₱{{ $product->wholesale_price * $qty }}</td>
                     @endif
                 </tr>
                 @endforeach

@@ -38,7 +38,7 @@ Product List
                         <h5 class="card-title fw-bold col m-0 {{ $product['stock_quantity'] === 0 || !$product['available'] ? 'text-decoration-line-through text-danger' : '' }}" style="color: #233754;">{{ $product['product_name'] }}</h5>
                         <div class="col-auto">
                             <h5 class="m-0 text-end" style="color: #233754;">₱{{ $product['price'] }}</h5>
-                            <h5 class="m-0 text-end" style="font-size: 12px;">WHOLESALE: ₱{{ $product['wholesale_price'] }}</h5>
+                            <h5 class="m-0 text-end" style="font-size: 12px;">WHOLESALE: ₱{{ isset($product['wholesale_price']) ? $product['wholesale_price'] : 'N/A' }}</h5>
                             <h5 class="m-0 text-end" style="font-size: 12px;">ORIGINAL: ₱{{ $product['original_price'] }}</h5>
                         </div>
                     </div>
