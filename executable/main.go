@@ -8,7 +8,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"syscall"
 
 	"github.com/toqueteos/webbrowser"
 )
@@ -75,13 +74,15 @@ func main() {
 	webbrowser.Open(fmt.Sprintf("http://%s", host))
 
 	if dup {
-		pgid, err := syscall.Getpgid(cmd.Process.Pid)
-        if err != nil {
-            log.Fatal(err)
-        }
+		// pgid, err := syscall.Getpgid(cmd.Process.Pid)
+		//       if err != nil {
+		//           log.Fatal(err)
+		//       }
+		//
+		//       syscall.Kill(-pgid, 15)
+		//       fmt.Println("Process Killed")
 
-        syscall.Kill(-pgid, 15)
-        fmt.Println("Process Killed")
+        cmd.Wait()
 	} else {
 		cmd.Wait()
 	}
