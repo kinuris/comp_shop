@@ -35,6 +35,11 @@ class PaymentTransaction extends Model
         ]);
     }
 
+    function method()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'fk_payment_method');
+    }
+
     function getItems(): array
     {
         $entries = Cart::query()

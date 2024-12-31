@@ -231,8 +231,7 @@ class UserController extends Controller
 
     public function history(Request $request)
     {
-        $history = auth()
-            ->user()
+        $history =auth()->user()
             ->getProcessedOrders() ?? [];
 
         if ($request->query('search')) {
@@ -241,8 +240,33 @@ class UserController extends Controller
             $history = array_intersect_key($history, array_flip($similar));
         }
 
+        $method = $request->query('methodsort'); 
+        $start = $request->query('start');
+        $end = $request->query('end');
+
+        $start = isset($start) ? date_create($start) : date_create('yesterday');
+        $end = isset($end) ? date_create($end) : date_create('now');
+
         $daily = array();
         foreach ($history as $tid => $items) {
+            if (isset($method) && $method != -1) {
+                $transactionMethod = PaymentTransaction::query()
+                    ->find($tid)
+                    ->method;
+
+                if ($transactionMethod->id != $method) {
+                    continue;
+                }
+            }
+
+            if (date_create(PaymentTransaction::query()->find($tid)->created_at) < $start) {
+                continue;
+            }
+
+            if (date_create(PaymentTransaction::query()->find($tid)->created_at) > $end) {
+                continue;
+            }
+
             if (date_create(PaymentTransaction::query()->find($tid)->created_at) > date_create('yesterday')) {
                 $daily[$tid] = $items;
             }
@@ -266,7 +290,15 @@ class UserController extends Controller
             }
         }
 
+        if ($request->query('sort') !== 'oldest') {
+            usort($daily, fn ($a, $b) => $b[0]->created_at <=> $a[0]->created_at);
+        } else {
+            usort($daily, fn ($a, $b) => $a[0]->created_at <=> $b[0]->created_at);
+        }
+
         return $view
-            ->with('history', $daily);
+            ->with('history', $daily)
+            ->with('start', $start)
+            ->with('end', $end);
     }
 }

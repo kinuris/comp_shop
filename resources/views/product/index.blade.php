@@ -48,7 +48,7 @@ Product List
                         <div class="btn-group mb-3 ms-1">
                             <a href="/product/restock/{{ $product->id }}" class="btn text-white" style="background-color: #FE9A01;">Restock</a>
                             <a href="/product/update/{{ $product->id }}" class="btn text-white btn-secondary">Edit</a>
-                            <a href="/product/avail/toggle/{{ $product->id }}" class="btn text-white {{ $product->available ? 'btn-danger' : 'btn-primary' }}">{{ $product->available ? 'Unavailable' : 'Allow' }}</a>
+                            <a href="/product/avail/toggle/{{ $product->id }}" class="btn text-white {{ $product->available ? 'btn-danger' : 'btn-primary' }}">{{ $product->available ? 'Unavailable' : 'Available' }}</a>
                         </div>
                     </div>
                 </div>

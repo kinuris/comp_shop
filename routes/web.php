@@ -50,6 +50,12 @@ Route::get('/test/{transaction}', [PaymentTransactionController::class, 'html_ge
 
 // NOTE: Manager related controller
 
+Route::controller(AnalyticsController::class)
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/analytics', 'analytics')->can('viewAny', Product::class);
+    });
+
 Route::controller(ProductController::class)
     ->middleware('auth')
     ->group(function () {

@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="/" class="nav-link active text-secondary">Home</a>
+                    <a href="/analytics" class="nav-link active text-secondary">Sales Report</a>
                 </li>
                 <li class="nav-item">
                     <a href="/summary" class="nav-link active text-secondary">Summary</a>
