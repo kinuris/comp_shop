@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
 // Route::get('/search', ProductSearch::class);
 Route::get('/test/{transaction}', [PaymentTransactionController::class, 'html_generate_modal']);
+Route::get('/history/delete/{transaction}', [PaymentTransactionController::class, 'destroy']);
 
 // NOTE: Manager related controller
 

@@ -6,6 +6,13 @@ use App\Models\PaymentTransaction;
 
 class PaymentTransactionController extends Controller
 {
+    public function destroy(PaymentTransaction $transaction)
+    {
+        $transaction->delete();
+
+        return  redirect('/history')->with('message', 'Transaction deleted!');
+    }
+
     public function html_generate_modal(PaymentTransaction $transaction)
     {
         $html = view('layouts.receipt-modal')
