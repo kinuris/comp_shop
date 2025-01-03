@@ -19,7 +19,7 @@ Records History
         <div class="row mb-3">
             <div class="p-0 col form-floating">
                 <input value="{{ request()->query('search') }}" class="form-control" type="text" name="search" id="search">
-                <label for="search">Search Transaction Date</label>
+                <label for="search">Search Transaction ID</label>
             </div>
             <button class="col-auto btn btn-primary ms-2" type="submit">Search</button>
         </div>

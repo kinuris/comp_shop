@@ -103,6 +103,13 @@ class UserController extends Controller
 
     public function peek_history(Request $request, User $user)
     {
+        $method = $request->query('methodsort');
+        $start = $request->query('start');
+        $end = $request->query('end');
+
+        $start = isset($start) ? date_create($start) : date_create('yesterday');
+        $end = isset($end) ? date_create($end) : date_create('now');
+
         if (($user->isManager() && $request->query('mode') === 'changelog') || $user->isAdmin()) {
             $productChanges = ProductSnapshot::query()
                 ->where('fk_user', '=', $user->user_id)
@@ -134,20 +141,40 @@ class UserController extends Controller
             $history = $user->getProcessedOrders() ?? [];
 
             if ($request->query('search')) {
-                $similar = array_filter(array_keys($history), fn ($rec) => str_contains($rec, $request->query('search')));
+                $similar = array_filter(array_keys($history), fn($rec) => str_contains($rec, $request->query('search')));
 
                 $history = array_intersect_key($history, array_flip($similar));
             }
 
             $daily = array();
             foreach ($history as $tid => $items) {
+                if (isset($method) && $method != -1) {
+                    $transactionMethod = PaymentTransaction::query()
+                        ->find($tid)
+                        ->method;
+
+                    if ($transactionMethod->id != $method) {
+                        continue;
+                    }
+                }
+
+                if (date_create(PaymentTransaction::query()->find($tid)->created_at) < $start) {
+                    continue;
+                }
+
+                if (date_create(PaymentTransaction::query()->find($tid)->created_at) > $end) {
+                    continue;
+                }
+
                 if (date_create(PaymentTransaction::query()->find($tid)->created_at) > date_create('yesterday')) {
                     $daily[$tid] = $items;
                 }
             }
 
             $view = view('user.history')
-                ->with('peek_user', $user->user_id);
+                ->with('peek_user', $user->user_id)
+                ->with('start', $start)
+                ->with('end', $end);
 
             $tid = $request->query('modal');
             if ($tid) {
@@ -163,6 +190,12 @@ class UserController extends Controller
                         ->with('modal', $res->content())
                         ->with('transaction', $transaction);
                 }
+            }
+
+            if ($request->query('sort') !== 'oldest') {
+                usort($daily, fn($a, $b) => $b[0]->created_at <=> $a[0]->created_at);
+            } else {
+                usort($daily, fn($a, $b) => $a[0]->created_at <=> $b[0]->created_at);
             }
 
             return $view
@@ -231,16 +264,16 @@ class UserController extends Controller
 
     public function history(Request $request)
     {
-        $history =auth()->user()
+        $history = auth()->user()
             ->getProcessedOrders() ?? [];
 
         if ($request->query('search')) {
-            $similar = array_filter(array_keys($history), fn ($rec) => str_contains($rec, $request->query('search')));
+            $similar = array_filter(array_keys($history), fn($rec) => str_contains($rec, $request->query('search')));
 
             $history = array_intersect_key($history, array_flip($similar));
         }
 
-        $method = $request->query('methodsort'); 
+        $method = $request->query('methodsort');
         $start = $request->query('start');
         $end = $request->query('end');
 
@@ -291,9 +324,9 @@ class UserController extends Controller
         }
 
         if ($request->query('sort') !== 'oldest') {
-            usort($daily, fn ($a, $b) => $b[0]->created_at <=> $a[0]->created_at);
+            usort($daily, fn($a, $b) => $b[0]->created_at <=> $a[0]->created_at);
         } else {
-            usort($daily, fn ($a, $b) => $a[0]->created_at <=> $b[0]->created_at);
+            usort($daily, fn($a, $b) => $a[0]->created_at <=> $b[0]->created_at);
         }
 
         return $view
