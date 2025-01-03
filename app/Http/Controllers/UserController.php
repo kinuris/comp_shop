@@ -278,7 +278,7 @@ class UserController extends Controller
         $end = $request->query('end');
 
         $start = isset($start) ? date_create($start) : date_create('yesterday');
-        $end = isset($end) ? date_create($end) : date_create('now');
+        $end = isset($end) ? date_create($end) : date_create('tomorrow');
 
         $daily = array();
         foreach ($history as $tid => $items) {
@@ -300,9 +300,7 @@ class UserController extends Controller
                 continue;
             }
 
-            if (date_create(PaymentTransaction::query()->find($tid)->created_at) > date_create('yesterday')) {
-                $daily[$tid] = $items;
-            }
+            $daily[$tid] = $items;
         }
 
         $view = view('user.history');
