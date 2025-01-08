@@ -11,10 +11,10 @@ class AnalyticsController extends Controller
     public function analytics()
     {
         $start = request()->query('start') ?? 'yesterday';
-        $end = request()->query('end') ?? 'now';
+        $end = request()->query('end') ?? 'today';
 
         $start = date_create($start);
-        $end = date_create($end);
+        $end = date_create($end)->setTime(23, 59, 59);
 
         $transactions = PaymentTransaction::query()
             ->where('created_at', '>', $start)

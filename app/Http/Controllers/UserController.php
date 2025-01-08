@@ -274,11 +274,11 @@ class UserController extends Controller
         }
 
         $method = $request->query('methodsort');
-        $start = $request->query('start');
-        $end = $request->query('end');
+        $start = $request->query('start') ?? 'yesterday';
+        $end = $request->query('end') ?? 'tomorrow';
 
-        $start = isset($start) ? date_create($start) : date_create('yesterday');
-        $end = isset($end) ? date_create($end) : date_create('tomorrow');
+        $start = date_create($start);
+        $end = date_create($end)->setTime(23, 59, 59);
 
         $daily = array();
         foreach ($history as $tid => $items) {
