@@ -31,7 +31,7 @@ Product List
     <div class="row justify-content-center justify-content-md-evenly mx-auto" style="max-width: 100vw;">
         @foreach($group as $product)
         <div class="d-flex justify-content-center justify-content-md-evenly col-12 col-md-6 col-lg-3 mb-3 p-0">
-            <div class="card" style="width: 18rem; aspect-ratio: 4/5;">
+            <div class="card" style="width: 18rem; aspect-ratio: 1.8;">
                 <!-- <img src="{{ $product['image_link'] ? asset('storage/product/image/' . $product['image_link']) : asset('/assets/images/default_product.jpg') }}" class="card-img-top" alt="{{ $product['product_name'] }}"> -->
                 <div class="card-body position-relative">
                     <div class="row">
