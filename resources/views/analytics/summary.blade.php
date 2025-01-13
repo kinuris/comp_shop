@@ -53,7 +53,7 @@
                     </th>
                     <th>Inventory Cost</th>
                     <th>Retail Value</th>
-                    <th>Wholesale Value</th>
+                    <th>Off Take Value</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,12 +68,11 @@
                     <td>{{ $product->product_name }}</td>
                     <td>{{ $product->original_price }} PHP</td>
                     <td>{{ $product->price }} PHP</td>
-                    <td>{{ number_format($product->price - $product->original_price) }} PHP</td>
-                    <!-- @if (isset($product->wholesale_price))
+                    @if (isset($product->wholesale_price))
                     <td>{{ $product->wholesale_price }} PHP</td>
                     @else
                     <td>N/A</td>
-                    @endif -->
+                    @endif
                     <td>
                         <form class="restocking-forms" data-product-id="{{ $product->id }}" data-original-stock="{{ $product->stock_quantity }}" action="/product/restock/{{ $product->id }}" method="POST">
                             @csrf
@@ -90,15 +89,16 @@
                     @php($retCost = $product->stock_quantity * $product->price)
                     <td>{{ number_format($retCost, 2) }} PHP</td>
                     @php($wholCost = $product->stock_quantity * $product->wholesale_price)
-                    @if (isset($product->wholesale_price))
+                    <td>{{ number_format($product->price - $product->original_price, 2) }} PHP</td>
+                    <!-- @if (isset($product->wholesale_price))
                     <td>{{ number_format($wholCost, 2) }} PHP</td>
                     @else
                     <td>N/A</td>
-                    @endif
+                    @endif -->
                     <?php
                     $invCostTotal += $invCost;
                     $retCostTotal += $retCost;
-                    $wholCostTotal += $wholCost;
+                    $wholCostTotal += $product->price - $product->original_price;
                     ?>
                 </tr>
                 @endforeach
