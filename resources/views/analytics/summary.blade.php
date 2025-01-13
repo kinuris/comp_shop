@@ -32,7 +32,7 @@
                     <th>Name</th>
                     <th>Cost (Original Price)</th>
                     <th>Retail Price</th>
-                    <th>Off Take Value</th>
+                    <th>Wholesale Price</th>
                     <th>Current Stock</th>
                     <th>
                         <div class="d-flex align-items-start">
