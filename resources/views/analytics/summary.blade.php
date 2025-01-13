@@ -77,7 +77,7 @@
                         <form class="restocking-forms" data-product-id="{{ $product->id }}" data-original-stock="{{ $product->stock_quantity }}" action="/product/restock/{{ $product->id }}" method="POST">
                             @csrf
                             <div class="d-flex">
-                                <input type="number" name="new_stock" value="{{ $product->stock_quantity }}" class="form-control" style="max-width: 96px;" />
+                                <input tabindex="{{ $loop->iteration }}" type="number" name="new_stock" value="{{ $product->stock_quantity }}" class="form-control" style="max-width: 96px;" />
                                 <div class="mx-1"></div>
                                 <button type="button" class="btn btn-primary">Update</button>
                             </div>
