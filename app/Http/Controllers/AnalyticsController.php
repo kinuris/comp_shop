@@ -49,7 +49,7 @@ class AnalyticsController extends Controller
         $handle = fopen('php://output', 'w');
 
         $cb = function () use ($handle, $products) {
-            fputcsv($handle, ['ID', 'Name', 'Cost (Original Price)', 'Retail Price', 'Wholesale Price', 'Current Stock', 'Status', 'Inventory Cost', 'Retail Value', 'Wholesale Value']);
+            fputcsv($handle, ['ID', 'Name', 'Cost (Original Price)', 'Retail Price', 'Wholesale Price', 'Current Stock', 'Status', 'Inventory Cost', 'Retail Value', 'Off Take Value']);
             foreach ($products as $product) {
                 fputcsv($handle, [
                     $product->id,
@@ -61,7 +61,7 @@ class AnalyticsController extends Controller
                     $product->stock_quantity > 0 ? 'In Stock' : 'Out of Stock',
                     $product->original * $product->stock_quantity,
                     $product->price * $product->stock_quantity,
-                    $product->wholesale_price ? $product->wholesale_price * $product->stock_quantity : 'N/A',
+                    ($product->price * $product->stock_quantity) - ($product->original_price * $product->stock_quantity),
                 ]);
             }
         };
