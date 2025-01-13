@@ -46,7 +46,7 @@ Product List
                     <p class="card-text">{{ $product->description }}</p>
                     <div class="position-absolute bottom-0">
                         <div class="btn-group mb-3 ms-1">
-                            <a href="/product/restock/{{ $product->id }}" class="btn text-white" style="background-color: #FE9A01;">Restock</a>
+                            <a href="/product/restock/{{ $product->id }}" class="btn text-white" style="background-color: #FE9A01;">Stock</a>
                             <a href="/product/update/{{ $product->id }}" class="btn text-white btn-secondary">Edit</a>
                             <a href="/product/avail/toggle/{{ $product->id }}" class="btn text-white {{ $product->available ? 'btn-danger' : 'btn-primary' }}">{{ $product->available ? 'Unavailable' : 'Available' }}</a>
                         </div>

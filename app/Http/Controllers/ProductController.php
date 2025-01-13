@@ -198,6 +198,19 @@ class ProductController extends Controller
         ProductRestock::create($validated);
         $product->update(['stock_quantity' => $product->stock_quantity + $validated['amount']]);
 
+        if ($request->input('summary') == 1) {
+            if ($validated['amount'] > 0) {
+                return response()->json([
+                    'message' => 'Successfully added ' . $validated['amount'] . ' ' . $product->product_name . ' stock'
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'Successfully subtracted ' . abs($validated['amount']) . ' ' . $product->product_name . ' stock'
+                ]);
+            }
+            // return redirect('/summary')->with('message', 'Successfully added ' . $validated['amount'] . ' ' . $product->product_name . ' stock');
+        }
+
         return redirect('/product')->with('message', 'Successfully added ' . $validated['amount'] . ' ' . $product->product_name . ' stock');
     }
 

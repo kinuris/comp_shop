@@ -41,4 +41,40 @@ class AnalyticsController extends Controller
 
         return view('analytics.summary')->with('products', $products);
     }
+
+    public function summaryExport()
+    {
+        $products = Product::query()->get();
+
+        $handle = fopen('php://output', 'w');
+
+        $cb = function () use ($handle, $products) {
+            fputcsv($handle, ['ID', 'Name', 'Cost (Original Price)', 'Retail Price', 'Wholesale Price', 'Current Stock', 'Status', 'Inventory Cost', 'Retail Value', 'Wholesale Value']);
+            foreach ($products as $product) {
+                fputcsv($handle, [
+                    $product->id,
+                    $product->product_name,
+                    $product->original_price,
+                    $product->price,
+                    $product->wholesale_price ? $product->wholesale_price : 'N/A',
+                    $product->stock_quantity,
+                    $product->stock_quantity > 0 ? 'In Stock' : 'Out of Stock',
+                    $product->original * $product->stock_quantity,
+                    $product->price * $product->stock_quantity,
+                    $product->wholesale_price ? $product->wholesale_price * $product->stock_quantity : 'N/A',
+                ]);
+            }
+        };
+
+        $fileName = date_create()->format('Y_m_d') . '_summary' . '.csv';
+        $headers = [
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        ];
+
+        return response()->stream($cb, 200, $headers);
+    }
 }

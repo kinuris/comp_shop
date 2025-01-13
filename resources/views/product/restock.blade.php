@@ -14,13 +14,14 @@ Restock Product
 
 @include('layouts.messenger')
 <div class="container">
-    <h1>Restocking {{ $product->product_name }}</h1>
+    <h1>Stock Management: {{ $product->product_name }}</h1>
     <h3>Current Stock: {{ $product->stock_quantity }}</h3>
     <form action="/product/restock/{{ $product->id }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group mb-2">
-            <label for="stock">Restock Quantity:</label>
+            <p class="text-muted">Note: Enter a negative number to subtract stock.</p>
+            <label for="stock">Stock Quantity: (ex. -1, 10)</label>
             <input class="form-control {{ $errors->has('stock') ? 'is-invalid' : '' }}" type="number" name="stock" id="stock" value="{{ old('stock') }}">
             @error('stock')
             <div class="invalid-feedback">{{ $message }}</div>

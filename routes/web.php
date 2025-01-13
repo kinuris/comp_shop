@@ -138,3 +138,7 @@ Route::middleware(['guest'])->group(function () {
 Route::get('/summary', [AnalyticsController::class, 'summary'])
     ->middleware('auth')
     ->can('viewAny', Product::class);
+
+Route::get('/summary/export', [AnalyticsController::class, 'summaryExport'])
+    ->middleware('auth')
+    ->can('viewAny', Product::class);
