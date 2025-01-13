@@ -32,7 +32,7 @@
                     <th>Name</th>
                     <th>Cost (Original Price)</th>
                     <th>Retail Price</th>
-                    <th>Wholesale Price</th>
+                    <th>Off Take Value</th>
                     <th>Current Stock</th>
                     <th>
                         <div class="d-flex align-items-start">
@@ -68,11 +68,12 @@
                     <td>{{ $product->product_name }}</td>
                     <td>{{ $product->original_price }} PHP</td>
                     <td>{{ $product->price }} PHP</td>
-                    @if (isset($product->wholesale_price))
+                    <td>{{ number_format($product->price - $product->original_price) }} PHP</td>
+                    <!-- @if (isset($product->wholesale_price))
                     <td>{{ $product->wholesale_price }} PHP</td>
                     @else
                     <td>N/A</td>
-                    @endif
+                    @endif -->
                     <td>
                         <form class="restocking-forms" data-product-id="{{ $product->id }}" data-original-stock="{{ $product->stock_quantity }}" action="/product/restock/{{ $product->id }}" method="POST">
                             @csrf
