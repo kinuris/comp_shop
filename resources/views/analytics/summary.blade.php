@@ -89,7 +89,7 @@
                     @php($retCost = $product->stock_quantity * $product->price)
                     <td>{{ number_format($retCost, 2) }} PHP</td>
                     @php($wholCost = $product->stock_quantity * $product->wholesale_price)
-                    <td>{{ number_format($product->price - $product->original_price, 2) }} PHP</td>
+                    <td>{{ number_format(($product->price * $product->stock_quantity) - ($product->original_price * $product->stock_quantity), 2) }} PHP</td>
                     <!-- @if (isset($product->wholesale_price))
                     <td>{{ number_format($wholCost, 2) }} PHP</td>
                     @else
@@ -98,7 +98,7 @@
                     <?php
                     $invCostTotal += $invCost;
                     $retCostTotal += $retCost;
-                    $wholCostTotal += $product->price - $product->original_price;
+                    $wholCostTotal += ($product->price * $product->stock_quantity) - ($product->original_price * $product->stock_quantity);
                     ?>
                 </tr>
                 @endforeach
