@@ -13,3 +13,4 @@ Admin Account
     @include('layouts.analytics')
 </div>
 @endsection
+
