@@ -59,7 +59,7 @@ class AnalyticsController extends Controller
                     $product->wholesale_price ? $product->wholesale_price : 'N/A',
                     $product->stock_quantity,
                     $product->stock_quantity > 0 ? 'In Stock' : 'Out of Stock',
-                    $product->original * $product->stock_quantity,
+                    $product->original_price * $product->stock_quantity,
                     $product->price * $product->stock_quantity,
                     ($product->price * $product->stock_quantity) - ($product->original_price * $product->stock_quantity),
                 ]);
